@@ -14,7 +14,7 @@ public class oppgave1 {
 
     public static void main(String[] args) {
         Valuta[] valutaer = { new Valuta(0.11, "US Dollar", "USD"), new Valuta(0.096, "Euro", "EUR"),
-                new Valuta(0.99, "Svenske Kroner", "SEK"), };
+                new Valuta(0.99, "Svenske Kroner", "SEK") };
 
         while (true) {
             String[] valutaerNavn = new String[valutaer.length];
