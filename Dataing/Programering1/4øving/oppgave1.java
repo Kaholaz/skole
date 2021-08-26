@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -10,9 +9,10 @@ import java.util.Scanner;
  * beløp i de forskjellige valutaene til norske kroner.
  */
 public class oppgave1 {
+    private static final String FEILMELDING = "Valget stemmer ikke overens med alternativene...\nVenligst prøv på nytt!";
     static Scanner sc = new Scanner(System.in);
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Valuta[] valutaer = { new Valuta(0.11, "US Dollar", "USD"), new Valuta(0.096, "Euro", "EUR"),
                 new Valuta(0.99, "Svenske Kroner", "SEK"), };
 
@@ -27,15 +27,33 @@ public class oppgave1 {
                 break;
             } else {
                 Valuta valuta = valutaer[valgt - 1];
-                valgt = meny("Ønsker du å konvertere til eller fra " + valuta.navn.toLowerCase(),
+                valgt = meny("Ønsker du å konvertere til eller fra " + valuta.navn.toLowerCase(), // Gir tre valg: fra
+                                                                                                  // NOK, til NOK og
+                                                                                                  // tilbake
                         new String[] { "Fra " + valuta.navn.toLowerCase() + " til norske kroner",
                                 "Fra norske kroner til " + valuta.navn.toLowerCase() },
                         "Tilbake");
-                if (valgt == 3) {
+                if (valgt == 3) { // tilbake ble valgt
                     continue;
                 }
-                System.out.println("Angi hvor mye penger du har:");
-                double penger = sc.nextDouble();
+                double penger;
+                {
+                    boolean feil = false;
+                    while (true) {
+                        System.out.println("Angi hvor mye penger du har:");
+                        if (feil) {
+                            System.out.println(FEILMELDING);
+                        }
+                        if (sc.hasNextDouble()) {
+                            penger = sc.nextDouble();
+                            break;
+                        } else {
+                            sc.next();
+                            feil = true;
+                            continue;
+                        }
+                    }
+                }
                 clearScreen();
                 if (valgt == 1) { // Formaterer som f.eks slik 32.89 NOK er 3.21 USD med to gjeldende desimaler.
                     System.out.printf("%.2f %s er %.2f %s\n", penger, valuta.symbol, valuta.toNok(penger), "NOK");
@@ -65,9 +83,8 @@ public class oppgave1 {
             for (int i = 0; i < valg.length; i++) {
                 System.out.println((i + 1) + ". " + valg[i]);
             }
-
             if (fail) {
-                System.out.println("Valget stemmer ikke overens med alternativene...\nVenligst prøv på nytt!");
+                System.out.println(FEILMELDING);
             }
 
             if (sc.hasNextInt()) { // Hvis brukeren ikke taster inn et heltall, blir tallet satt til -1 slik at
