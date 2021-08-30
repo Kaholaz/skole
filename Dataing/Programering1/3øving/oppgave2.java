@@ -35,12 +35,10 @@ public class oppgave2 {
             return false;
         }
 
-        long i = 3;
-        while (i * i <= num) {
+        for (long i = 3; i * i <= num; i += 2) {
             if (num % i == 0) {
                 return false;
             }
-            i += 2;
         }
         return true;
     }

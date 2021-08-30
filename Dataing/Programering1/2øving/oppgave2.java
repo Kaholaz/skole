@@ -33,8 +33,8 @@ public class oppgave2 {
         double kilopris;
         String navn;
 
-        public Kjøttdeig(String _navn) {
-            navn = _navn;
+        public Kjøttdeig(String navn) {
+            this.navn = navn;
             System.out.println("Hvor mye koster " + navn);
             pris = sc.nextDouble();
             System.out.println("Hvor mange gram veier " + navn);

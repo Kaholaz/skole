@@ -19,7 +19,7 @@ public class oppgave1 {
         while (true) {
             String[] valutaerNavn = new String[valutaer.length];
             for (int i = 0; i < valutaer.length; i++) {
-                valutaerNavn[i] = valutaer[i].navn;
+                valutaerNavn[i] = valutaer[i].getNavn();
             }
 
             int valgt = meny("Hvilken valuta ønsker du å konvertere til/fra?", valutaerNavn, "Avslutt");
@@ -27,11 +27,11 @@ public class oppgave1 {
                 break;
             } else {
                 Valuta valuta = valutaer[valgt - 1];
-                valgt = meny("Ønsker du å konvertere til eller fra " + valuta.navn.toLowerCase(), // Gir tre valg: fra
-                                                                                                  // NOK, til NOK og
-                                                                                                  // tilbake
-                        new String[] { "Fra " + valuta.navn.toLowerCase() + " til norske kroner",
-                                "Fra norske kroner til " + valuta.navn.toLowerCase() },
+                valgt = meny("Ønsker du å konvertere til eller fra " + valuta.getNavn().toLowerCase(), // Gir tre valg:
+                                                                                                       // fra NOK, til
+                                                                                                       // NOK og tilbake
+                        new String[] { "Fra " + valuta.getNavn().toLowerCase() + " til norske kroner",
+                                "Fra norske kroner til " + valuta.getNavn().toLowerCase() },
                         "Tilbake");
                 if (valgt == 3) { // tilbake ble valgt
                     continue;
@@ -56,9 +56,10 @@ public class oppgave1 {
                 }
                 clearScreen();
                 if (valgt == 1) { // Formaterer som f.eks slik 32.89 NOK er 3.21 USD med to gjeldende desimaler.
-                    System.out.printf("%.2f %s er %.2f %s\n", penger, valuta.symbol, valuta.toNok(penger), "NOK");
+                    System.out.printf("%.2f %s er %.2f %s\n", penger, valuta.getSymbol(), valuta.toNok(penger), "NOK");
                 } else {
-                    System.out.printf("%.2f %s er %.2f %s\n", penger, "NOK", valuta.fromNok(penger), valuta.symbol);
+                    System.out.printf("%.2f %s er %.2f %s\n", penger, "NOK", valuta.fromNok(penger),
+                            valuta.getSymbol());
                 }
                 sc.next(); // venter på at bruekeren skal trykke noe før programmet hopper opp igjen
             }
@@ -128,27 +129,40 @@ public class oppgave1 {
         System.out.flush();
     }
 
-    /**
-     * Valuta er en klasse som kan brukes til konvertere fra og til en spesifisert
-     * valuta til og fra norske kroner. Verdi er hvor mye en norsk krone er vert i
-     * den spesifiserte valutaen. Legg også inn navn og symbol.
-     */
-    static class Valuta {
-        double verdi;
-        String navn, symbol;
+}
 
-        Valuta(double verdi, String navn, String symbol) {
-            this.verdi = verdi;
-            this.navn = navn;
-            this.symbol = symbol;
-        }
+/**
+ * * Valuta er en klasse som kan brukes til konvertere fra og til en spesifisert
+ * * valuta til og fra norske kroner. Verdi er hvor mye en norsk krone er vert i
+ * den spesifiserte valutaen. Legg også inn navn og symbol.
+ */
+class Valuta {
+    private double verdi;
+    private String navn, symbol;
 
-        double toNok(double penger) {
-            return penger / verdi;
-        }
+    public String getNavn() {
+        return navn;
+    }
 
-        double fromNok(double penger) {
-            return penger * verdi;
-        }
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public double getVerdi() {
+        return verdi;
+    }
+
+    Valuta(double verdi, String navn, String symbol) {
+        this.verdi = verdi;
+        this.navn = navn;
+        this.symbol = symbol;
+    }
+
+    double toNok(double penger) {
+        return penger / verdi;
+    }
+
+    double fromNok(double penger) {
+        return penger * verdi;
     }
 }
