@@ -137,10 +137,10 @@ public class oppgave1 {
         double verdi;
         String navn, symbol;
 
-        Valuta(double verdi_, String navn_, String symbol_) {
-            verdi = verdi_;
-            navn = navn_;
-            symbol = symbol_;
+        Valuta(double verdi, String navn, String symbol) {
+            this.verdi = verdi;
+            this.navn = navn;
+            this.symbol = symbol;
         }
 
         double toNok(double penger) {

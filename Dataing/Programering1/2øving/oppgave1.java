@@ -13,11 +13,16 @@ public class oppgave1 {
         int år = sc.nextInt();
         sc.close();
 
-        boolean skuddår = false;
-        if (år % 4 == 0 && (år % 100 != 0 || år % 400 == 0)) {
-            skuddår = true;
-        }
+        boolean skuddår = erSkuddår(år);
 
         System.out.println(år + " er" + ((skuddår) ? "" : " ikke") + " et skuddår.");
+    }
+
+    static boolean erSkuddår(int år) {
+        if (år % 4 == 0 && (år % 100 != 0 || år % 400 == 0)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
