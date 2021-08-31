@@ -20,6 +20,16 @@ public class Oppgave1 {
 class Brøk {
     private int teller, nevner;
 
+    public Brøk(Brøk brøk) {
+        this.teller = brøk.teller;
+        this.nevner = brøk.nevner;
+    }
+
+    public Brøk(int heltall) {
+        this.teller = heltall;
+        this.nevner = 1;
+    }
+
     public Brøk(int teller, int nevner) {
         switch (Integer.signum(nevner)) {
             case 1:
@@ -33,16 +43,6 @@ class Brøk {
         }
         this.teller = teller;
         this.nevner = nevner;
-    }
-
-    public Brøk(Brøk brøk) {
-        this.teller = brøk.teller;
-        this.nevner = brøk.nevner;
-    }
-
-    public Brøk(int heltall) {
-        this.teller = heltall;
-        this.nevner = 1;
     }
 
     private static List<Integer> finnFelles(List<Integer> liste1, List<Integer> liste2) {
@@ -131,7 +131,7 @@ class Brøk {
     }
 
     public Brøk sub(Brøk brøk) {
-        return this.add(new Brøk(brøk.getTeller() * -1, brøk.getNevner());
+        return this.add(new Brøk(brøk.getTeller() * -1, brøk.getNevner()));
     }
 
     public Brøk forkortet() {
