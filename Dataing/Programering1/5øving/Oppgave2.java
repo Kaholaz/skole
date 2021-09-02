@@ -3,9 +3,12 @@ import java.util.Random;
 public class Oppgave2 {
     public static void main(String[] args) {
         Tilfeldig tilfeldig = new Tilfeldig();
-        System.out.println(new Random().nextInt(1));
-        System.out.println(tilfeldig.nesteDesimaltall(1.1, 1.2));
-        System.out.println(tilfeldig.nesteHeltall(11, 13));
+        for (int i = 0; i < 100; i++) {
+            System.out.println(tilfeldig.nesteDesimaltall(1.0, 2.0));
+        }
+        for (int i = 0; i < 100; i++) {
+            System.out.println(tilfeldig.nesteHeltall(10, 100));
+        }
     }
 }
 

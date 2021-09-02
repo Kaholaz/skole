@@ -9,11 +9,13 @@ import java.util.stream.Stream;
  */
 public class Oppgave1 {
     public static void main(String[] args) {
+        System.out.println(Integer.parseInt("-3"));
         System.out.println(new Brøk(1, 2).add(new Brøk(1, 2)));
         System.out.println(new Brøk(2, 5).add(new Brøk(5, -3)));
         System.out.println(new Brøk(6, 12).add(new Brøk(6, 12)));
         System.out.println(new Brøk(1231, 12342).add(new Brøk(3)));
         System.out.println(new Brøk(2).add(new Brøk(3)));
+        System.out.println(new Brøk(5, 3).sub(new Brøk(2, 3)));
     }
 }
 
@@ -43,6 +45,16 @@ class Brøk {
         }
         this.teller = teller;
         this.nevner = nevner;
+    }
+
+    public static Brøk parseBrøk(String string) {
+        String[] string_split = string.split("/");
+        if (string_split.length != 2) {
+            throw new NumberFormatException();
+        }
+        int teller = Integer.parseInt(string_split[0]);
+        int nevner = Integer.parseInt(string_split[1]);
+        return new Brøk(teller, nevner);
     }
 
     private static List<Integer> finnFelles(List<Integer> liste1, List<Integer> liste2) {
@@ -96,7 +108,8 @@ class Brøk {
         List<Integer> thisMangler = new ArrayList<Integer>(brøkFaktorisert);
         List<Integer> brøkMangler = new ArrayList<Integer>(thisFaktorisert);
 
-        {
+        { // brøkMangler fylles med faktorene som er unike for brøk, og visa versa for
+          // thisMangler
             int i = 0;
             while (i < thisMangler.size()) {
                 int tall = thisMangler.get(i);
@@ -108,7 +121,15 @@ class Brøk {
                 }
             }
         }
-        int fellesNevner = Stream.concat(thisFaktorisert.stream(), thisMangler.stream()).reduce(1, (a, b) -> a * b);
+        int fellesNevner = Stream.concat(thisFaktorisert.stream(), thisMangler.stream()).reduce(1, (a, b) -> a * b); // ganger
+                                                                                                                     // sammen
+                                                                                                                     // hva
+                                                                                                                     // den
+                                                                                                                     // har
+                                                                                                                     // og
+                                                                                                                     // hva
+                                                                                                                     // den
+                                                                                                                     // mangler
         int brøkFellesNevner = Stream.concat(brøkFaktorisert.stream(), brøkMangler.stream()).reduce(1, (a, b) -> a * b);
         if (fellesNevner != brøkFellesNevner) {
             throw new InternalError("Noe rart skjedde. Brøker: " + this.toString() + brøk.toString());
@@ -132,6 +153,14 @@ class Brøk {
 
     public Brøk sub(Brøk brøk) {
         return this.add(new Brøk(brøk.getTeller() * -1, brøk.getNevner()));
+    }
+
+    public Brøk multi(Brøk brøk) {
+        return new Brøk(this.teller * brøk.teller, this.nevner * brøk.nevner).forkortet();
+    }
+
+    public Brøk div(Brøk brøk) {
+        return this.multi(new Brøk(brøk.nevner, brøk.teller));
     }
 
     public Brøk forkortet() {
