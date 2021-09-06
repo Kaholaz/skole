@@ -15,12 +15,12 @@ public class Oppgave1 {
         int antIterasjoner = fåIntSvar("Hvor mange iterasjoner vil du kjøre?");
         sc.close();
 
-        int[] fordeling = new int[antTall];
+        int[] fordeling = new int[antTall]; // en indeks er et tall som kan bli valgt av tilfeldighetsgeneratoren
         for (int i = 0; i < antTall; i++) {
             fordeling[i] = 0;
         }
 
-        for (int i = 0; i < antIterasjoner; i++) {
+        for (int i = 0; i < antIterasjoner; i++) { // legger til én hver gang indeksen blir valgt
             int tall = rand.nextInt(antTall);
             fordeling[tall] += 1;
         }
@@ -39,26 +39,33 @@ public class Oppgave1 {
                     return svar;
                 }
             }
+
             sc.next();
             System.out.println("Din indata er ugyldig.. prøv på nytt!");
         }
     }
 
     static void renderFordeling(int[] fordeling) {
-        int max = 0;
+        int max = 0; // største tallet
         for (int i : fordeling) {
             max = Integer.max(max, i);
         }
-        int maxDigits = beregnAntSiffer(max);
-        int maxDigitsIndex = beregnAntSiffer(fordeling.length + 1);
-        int sum = Arrays.stream(fordeling).reduce(0, (a, b) -> a + b);
+
+        int maxDigits = beregnAntSiffer(max); // maks antall siffer
+        int maxDigitsIndex = beregnAntSiffer(fordeling.length + 1); // maks siffer til indeksen
+        int sum = Arrays.stream(fordeling).sum(); // sum av alle elementene (burde være det samme
+                                                  // som antall iterasjoner)
 
         System.out.println("Fordelingen etter " + sum + " iterasjoner ser slik ut:");
         for (int i = 0; i < fordeling.length; i++) {
-            int nevner = 100;
-            int prop = (int) Math.round(nevner * ((double) fordeling[i] / sum));
+            int antallStjerner = 100;
+            int antallFyllteStjener = (int) Math.round(antallStjerner * ((double) fordeling[i] / sum));
+
+            // eks: 3 (indeksen eller tallet): 92 (antall ganger tallet ble valgt)
+            // *************----- (søylen blir fylt etter forholdet mellom ganger tallet ble
+            // valgt og antallet iterasjoner).
             System.out.printf("%" + maxDigitsIndex + "d: %" + maxDigits + "d %s\n", i + 1, fordeling[i],
-                    propBar(prop, nevner));
+                    propBar(antallFyllteStjener, antallStjerner));
         }
     }
 
@@ -67,7 +74,7 @@ public class Oppgave1 {
      * @param max Totalt antall ledd i søylen
      * @return En fordeig utfylt søyle som visualiserer et forhold
      */
-    static String propBar(int num, int max) {
+    static String propBar(int num, int max) { // git en søyle der det er %num% fylte bokser og %max% totale bokser.
         final String EMPTY_BOX = "─";
         final String FILLED_BOX = "■";
 
@@ -80,10 +87,10 @@ public class Oppgave1 {
 
     }
 
-    static int beregnAntSiffer(int num) {
+    static int beregnAntSiffer(int num) { // gir antall siffer for %num%
         if (num == 0) {
             return 1;
         }
-        return ((int) Math.log10(num)) + 1;
+        return ((int) Math.log10(Math.abs(num))) + 1;
     }
 }

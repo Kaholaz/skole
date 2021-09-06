@@ -8,6 +8,7 @@ public class Oppgave3 {
         System.out.println(a.add(b));
         System.out.println(a.multi(b));
         System.out.println(a.multi(c));
+        System.out.println(c.transponer());
         System.out.println(a.add(c));
     }
 }
@@ -35,6 +36,7 @@ class Matrise {
     Matrise(int[][] array2d) {
         int ySize = array2d.length;
         int xSize = array2d[0].length;
+
         for (int[] row : array2d) {
             if (row.length != xSize) {
                 throw new IllegalArgumentException("Alle radene må ha samme lengde...");
@@ -76,15 +78,20 @@ class Matrise {
 
     public String toString() {
         String result = "[[";
+
         for (int n = 0; n < getN(); n++) {
+
             if (n != 0) {
                 result = result.concat("\n");
             }
+
             for (int m = 0; m < getM(); m++) {
                 result = result.concat(this.get(n, m) + ", ");
             }
+
             result = result.concat("]");
         }
+
         result = result.concat("]");
         return result;
     }
@@ -95,6 +102,7 @@ class Matrise {
         }
         int[][] array2d = new int[getN()][getM()];
 
+        // adderer element for element
         for (int n = 0; n < getN(); n++) {
             for (int m = 0; m < getM(); m++) {
                 array2d[n][m] = this.get(n, m) + matrise.get(n, m);
@@ -111,6 +119,8 @@ class Matrise {
 
         int p = this.getM() - 1;
         int[][] array2d = new int[this.getN()][matrise.getM()];
+
+        // gjør krysspeiling
         for (int n = 0; n < this.getN(); n++) {
             for (int m = 0; m < matrise.getM(); m++) {
                 array2d[n][m] = 0;
@@ -119,6 +129,18 @@ class Matrise {
                 }
             }
         }
+
+        return new Matrise(array2d);
+    }
+
+    public Matrise transponer() {
+        int[][] array2d = new int[getM()][getN()];
+        for (int n = 0; n < getN(); n++) {
+            for (int m = 0; m < getM(); m++) {
+                array2d[m][n] = this.get(n, m);
+            }
+        }
+
         return new Matrise(array2d);
     }
 }
