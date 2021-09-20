@@ -30,19 +30,6 @@ class Meny {
      * Stiller brukeren et spørsmål og returnerer svaret.
      * 
      * @param spørsmål Spørsmålet som stilles brukeren.
-     * @return Svaret brukeren gir.
-     */
-    static public String spørString(String spørsmål) {
-        Scanner sc = new Scanner(System.in);
-        String svar = spørString(spørsmål, sc);
-        sc.close();
-        return svar;
-    }
-
-    /**
-     * Stiller brukeren et spørsmål og returnerer svaret.
-     * 
-     * @param spørsmål Spørsmålet som stilles brukeren.
      * @param scanner  Scanneren som brukes (vanligvis new Scanner(System.in)).
      * @return Svaret brukeren gir funksjonen sørger for at brukeren taster inn et
      *         heltall.
@@ -56,20 +43,6 @@ class Meny {
             scanner.next();
             return spørInt(spørsmål, scanner);
         }
-    }
-
-    /**
-     * Stiller brukeren et spørsmål og returnerer svaret.
-     * 
-     * @param spørsmål Spørsmålet som stilles brukeren.
-     * @return Svaret brukeren gir. Funksjonen sørger for at brukeren taster inn et
-     *         heltall.
-     */
-    static public int spørInt(String spørsmål) {
-        Scanner sc = new Scanner(System.in);
-        int svar = spørInt(spørsmål, sc);
-        sc.close();
-        return svar;
     }
 
     /**
@@ -92,23 +65,6 @@ class Meny {
     }
 
     /**
-     * Stiller brukeren et spørsmål og returnerer svaret innenfor et intervall,
-     * [min, max>.
-     * 
-     * @param spørsmål Spørsmålet som stilles brukeren.
-     * @param min      Minste verdi et gyldig svar kan ha.
-     * @param max      Største verdi et gyldig svar kan ha (not-inclusive).
-     * @return Svaret brukeren gir i intervallet [min, max>. Funksjonen sørger for
-     *         at brukeren taster inn et heltall.
-     */
-    static public int spørInt(String spørsmål, int min, int max) {
-        Scanner sc = new Scanner(System.in);
-        int svar = spørInt(spørsmål, min, max, sc);
-        sc.close();
-        return svar;
-    }
-
-    /**
      * Stiller brukeren et spørsmål og returnerer svaret.
      * 
      * @param spørsmål Spørsmålet som stilles brukeren.
@@ -125,21 +81,6 @@ class Meny {
             scanner.next();
             return spørDouble(spørsmål, scanner);
         }
-
-    }
-
-    /**
-     * Stiller brukeren et spørsmål og returnerer svaret.
-     * 
-     * @param spørsmål Spørsmålet som stilles brukeren.
-     * @return Svaret brukeren gir. Funksjonen sørger for at brukeren taster inn et
-     *         desimaltall.
-     */
-    static public double spørDouble(String spørsmål) {
-        Scanner sc = new Scanner(System.in);
-        double svar = spørDouble(spørsmål, sc);
-        sc.close();
-        return svar;
     }
 
     /**
@@ -158,23 +99,6 @@ class Meny {
         for (; svar < min || max <= svar; svar = spørDouble(spørsmål, scanner)) {
             System.out.printf("Svaret må finnes i intervallet [%d, %d>\n", min, max);
         }
-        return svar;
-    }
-
-    /**
-     * Stiller brukeren et spørsmål og returnerer svaret innenfor et intervall,
-     * [min, max].
-     * 
-     * @param spørsmål Spørsmålet som stilles brukeren.
-     * @param min      Minste verdi et gyldig svar kan ha.
-     * @param max      Største verdi et gyldig svar kan ha.
-     * @return Svaret brukeren gir i intervallet [min, max]. Funksjonen sørger for
-     *         at brukeren taster inn et desimaltall.
-     */
-    static public double spørDouble(String spørsmål, double min, double max) {
-        Scanner sc = new Scanner(System.in);
-        double svar = spørDouble(spørsmål, min, max, sc);
-        sc.close();
         return svar;
     }
 
@@ -223,34 +147,6 @@ class Meny {
 
     }
 
-    static public int lesHeltall(Scanner scanner) {
-        int out = scanner.nextInt();
-        scanner.nextLine();
-        return out;
-    }
-
-    static public double lesDouble(Scanner scanner) {
-        double out = scanner.nextDouble();
-        scanner.nextLine();
-        return out;
-    }
-
-    /**
-     * Stiller brukeren et spørsmål med et binært svar.
-     * 
-     * @param spørsmål   Spørsmålet som blir stilt brukeren.
-     * @param sanneSvar  Svaralternativer som gir {@code true}.
-     * @param usanneSvar Svaralternativer som gir {@code false}.
-     * @param scanner    Scanneren som brukes (vanligvis new Scanner(System.in)).
-     * @return Gir en boolean verdi som samsvarer med svaret brukeren skrev inn.
-     */
-    static public boolean spørBool(String spørsmål, String[] sanneSvar, String[] usanneSvar) {
-        Scanner sc = new Scanner(System.in);
-        boolean svar = spørBool(spørsmål, sanneSvar, usanneSvar, sc);
-        sc.close();
-        return svar;
-    }
-
     /**
      * Stiller brukeren et spørsmål med et binært svar. Svaralternativene er [ja, j]
      * og [nei, n].
@@ -265,18 +161,16 @@ class Meny {
         return spørBool(spørsmål, sanneSvar, usanneSvar, scanner);
     }
 
-    /**
-     * Stiller brukeren et spørsmål med et binært svar. Svaralternativene er [ja, j]
-     * og [nei, n].
-     * 
-     * @param spørsmål Spørsmålet som blir stilt brukeren.
-     * @return Gir en boolean verdi som samsvarer med svaret brukeren skrev inn.
-     */
-    static public boolean spørBool(String spørsmål) {
-        Scanner sc = new Scanner(System.in);
-        boolean svar = spørBool(spørsmål, sc);
-        sc.close();
-        return svar;
+    static public int lesHeltall(Scanner scanner) {
+        int out = scanner.nextInt();
+        scanner.nextLine();
+        return out;
+    }
+
+    static public double lesDouble(Scanner scanner) {
+        double out = scanner.nextDouble();
+        scanner.nextLine();
+        return out;
     }
 
     /**
@@ -330,7 +224,6 @@ class Meny {
             // betingelsene for løkken ikke blir møtt.
             if (scanner.hasNextInt()) {
                 tall = lesHeltall(scanner);
-                ;
             } else {
                 scanner.next(); // nullstiller scanneren
                 tall = -1;
@@ -340,21 +233,6 @@ class Meny {
         } while (tall < 1 || valg.length < tall);
 
         return tall;
-    }
-
-    /**
-     * Printer ut en meny der brukeren blir stilt et spørsmål og gir brukeren
-     * svaralternativer. Spørsmålet og svaralternativene samsvarer med det som ble
-     * angit i konstruksjonen av instansen.
-     * 
-     * @return Returnerer et svar som samsvarer med hva brukeren valgte
-     *         (1-indeksert)
-     */
-    public int promptSvar() {
-        Scanner sc = new Scanner(System.in);
-        int svar = promptSvar(sc);
-        sc.close();
-        return svar;
     }
 
     // Fjerner alt fra terminalvinduet

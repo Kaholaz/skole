@@ -14,98 +14,6 @@ public class ArbTaker extends Person {
     public static final double SKATTEANDEL_DEFAULT = 0.22;
 
     /**
-     * Genererer et nytt unikt ansettelsesnr på formen YYYYXXX der YYYY er
-     * ansattelsesåret og XXX er et unikt nr som genereres i stigende rekkefølge for
-     * hvert år.
-     * 
-     * @param ansettelsesÅr Året personen ble ansatt.
-     * @return Et nytt unikt ansattnummer.
-     */
-    static int getNewUniqueArbTakerNr(int ansettelsesÅr) {
-        return 1111;
-        // throw new UnsupportedOperationException("Not inplemented");
-    }
-
-    /**
-     * Konstruktør for ArbTaker klassen som tar inn navnet til en ny arbeidstaker.
-     * Siden ansettelsesår, månedslønn og skatteandel ikke er gitt settes de til
-     * henholdsvis nåværende år, 0 og 0.22
-     * 
-     * Det genereres et nytt unikt ansattnummer på formen YYYYXXX der YYYY er
-     * ansattelsesåret og XXX er et unikt nr som genereres i stigende rekkefølge for
-     * hvert år.
-     * 
-     * @param etternavn Etternavnet til arbeidstakeren.
-     * @param fornavn   Fornavnet til arbeidstakeren.
-     * @param fødselsår Fødselsåret til arbeidstakeren.
-     */
-    public ArbTaker(String etternavn, String fornavn, int fødselsår) {
-        this.etternavn = etternavn;
-        this.fornavn = fornavn;
-        this.fødselsår = fødselsår;
-
-        this.ansettelsesÅr = new GregorianCalendar().get(Calendar.YEAR);
-        this.setMånedsLønn(0);
-        this.setSkatteAndel(0.22);
-
-        this.arbTakerNr = getNewUniqueArbTakerNr(ansettelsesÅr);
-    }
-
-    /**
-     * Konstruktør for ArbTaker klassen som tar inn navnet til en ny arbeidstaker og
-     * ansettelsesåret. Siden månedslønn og skatteandel ikke er gitt settes de til 0
-     * og 0.22
-     * 
-     * Det genereres et nytt unikt ansattnummer på formen YYYYXXX der YYYY er
-     * ansattelsesåret og XXX er et unikt nr som genereres i stigende rekkefølge for
-     * hvert år.
-     * 
-     * @param etternavn     Etternavnet til arbeidstakeren.
-     * @param fornavn       Fornavnet til arbeidstakeren.
-     * @param fødselsår     Fødselsåret til arbeidstakeren.
-     * @param ansettelsesÅr Året arbeidstakeren ble ansatt.
-     */
-    public ArbTaker(String etternavn, String fornavn, int fødselsår, int ansettelsesÅr) {
-        this.etternavn = etternavn;
-        this.fornavn = fornavn;
-        this.fødselsår = fødselsår;
-        this.ansettelsesÅr = ansettelsesÅr;
-
-        this.setMånedsLønn(0);
-        this.setSkatteAndel(0.22);
-
-        this.arbTakerNr = getNewUniqueArbTakerNr(ansettelsesÅr);
-    }
-
-    /**
-     * Konstruktør for ArbTaker klassen som tar inn navnet og lønnsdetaljer til en
-     * ny arbeidstaker. Siden ansettelsesår ikke er gitt, settes det til nåværende
-     * år.
-     * 
-     * Det genereres et nytt unikt ansattnummer på formen YYYYXXX der YYYY er
-     * ansattelsesåret og XXX er et unikt nr som genereres i stigende rekkefølge for
-     * hvert år.
-     * 
-     * @param etternavn   Etternavnet til arbeidstakeren.
-     * @param fornavn     Fornavnet til arbeidstakeren.
-     * @param fødselsår   Fødselsåret til arbeidstakeren.
-     * @param månedsLønn  Brutto månedslønn i norske kroner.
-     * @param skatteAndel Andelen av bruttolønnen som blir skattet av. (Oppgis i
-     *                    intervallet [0,1])
-     */
-    public ArbTaker(String etternavn, String fornavn, int fødselsår, int månedsLønn, double skatteAndel) {
-        this.etternavn = etternavn;
-        this.fornavn = fornavn;
-        this.fødselsår = fødselsår;
-
-        setMånedsLønn(månedsLønn);
-        setSkatteAndel(skatteAndel);
-
-        this.ansettelsesÅr = new GregorianCalendar().get(Calendar.YEAR);
-        this.arbTakerNr = getNewUniqueArbTakerNr(ansettelsesÅr);
-    }
-
-    /**
      * Konstruktør for ArbTaker klassen som tar inn navnet, ansettelsesåret og
      * lønnsdetaljer til en ny arbeidstaker.
      * 
@@ -121,17 +29,16 @@ public class ArbTaker extends Person {
      * @param skatteAndel   Andelen av bruttolønnen som blir skattet av. (Oppgis i
      *                      intervallet [0,1])
      */
-    public ArbTaker(String etternavn, String fornavn, int fødselsår, int ansettelsesÅr, int månedsLønn,
+    public ArbTaker(int arbTakerNr, String etternavn, String fornavn, int fødselsår, int ansettelsesÅr, int månedsLønn,
             double skatteAndel) {
         this.etternavn = etternavn;
         this.fornavn = fornavn;
         this.fødselsår = fødselsår;
         this.ansettelsesÅr = ansettelsesÅr;
+        this.arbTakerNr = arbTakerNr;
 
         setMånedsLønn(månedsLønn);
         setSkatteAndel(skatteAndel);
-
-        this.arbTakerNr = getNewUniqueArbTakerNr(ansettelsesÅr);
     }
 
     public int getArbTakerNr() {
@@ -220,7 +127,7 @@ public class ArbTaker extends Person {
      *         realiteten har vært ansatt i mer en den gitte mengden år.
      */
     public boolean harVærtAnsattMerEnn(int år) {
-        return (år > getAntallÅrAnsatt());
+        return (år < getAntallÅrAnsatt());
     }
 
     @Override
