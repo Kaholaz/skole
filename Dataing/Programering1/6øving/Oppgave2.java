@@ -219,11 +219,11 @@ class Tekstanalyse {
     private int finnIndeks(char tegn) {
         if (tegn >= 97 && 122 >= tegn) { // a-z
             return (int) tegn - 97;
-        } else if (tegn == 230) { // æ
+        } else if (tegn == 'æ') { // æ
             return 26;
-        } else if (tegn == 248) { // ø
+        } else if (tegn == 'ø') { // ø
             return 27;
-        } else if (tegn == 229) { // å
+        } else if (tegn == 'å') { // å
             return 28;
         } else { // alt annet
             return 29;
