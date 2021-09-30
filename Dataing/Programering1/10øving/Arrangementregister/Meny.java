@@ -70,6 +70,44 @@ class Meny {
      * @param spørsmål Spørsmålet som stilles brukeren.
      * @param scanner  Scanneren som brukes (vanligvis new Scanner(System.in)).
      * @return Svaret brukeren gir funksjonen sørger for at brukeren taster inn et
+     *         heltall (long).
+     */
+    static public long spørLong(String spørsmål, Scanner scanner) {
+        System.out.println(spørsmål);
+        if (scanner.hasNextLong()) {
+            return lesLong(scanner);
+        } else {
+            System.out.println(FEILMELDING_INT);
+            scanner.next();
+            return spørLong(spørsmål, scanner);
+        }
+    }
+
+    /**
+     * Stiller brukeren et spørsmål og returnerer svaret innenfor et intervall,
+     * [min, max>.
+     * 
+     * @param spørsmål Spørsmålet som stilles brukeren.
+     * @param min      Minste verdi et gyldig svar kan ha.
+     * @param max      Største verdi et gyldig svar kan ha (not-inclusive).
+     * @param scanner  Scanneren som brukes (vanligvis new Scanner(System.in)).
+     * @return Svaret brukeren gir i intervallet [min, max>. Funksjonen sørger for
+     *         at brukeren taster inn et heltall (long).
+     */
+    static public long spørLong(String spørsmål, long min, long max, Scanner scanner) {
+        long svar = spørLong(spørsmål, scanner);
+        for (; svar < min || max <= svar; svar = spørLong(spørsmål, scanner)) {
+            System.out.printf("Svaret må finnes i intervallet [%d, %d>\n", min, max);
+        }
+        return svar;
+    }
+
+    /**
+     * Stiller brukeren et spørsmål og returnerer svaret.
+     * 
+     * @param spørsmål Spørsmålet som stilles brukeren.
+     * @param scanner  Scanneren som brukes (vanligvis new Scanner(System.in)).
+     * @return Svaret brukeren gir funksjonen sørger for at brukeren taster inn et
      *         desimaltall.
      */
     static public double spørDouble(String spørsmål, Scanner scanner) {
@@ -173,6 +211,12 @@ class Meny {
         return out;
     }
 
+    static public long lesLong(Scanner scanner) {
+        long out = scanner.nextLong();
+        scanner.nextLine();
+        return out;
+    }
+
     /**
      * Konstruktør for Menyklassen. Her spesifiserer du spørsmålet du vil stille
      * brukeren og valgene de har. Vanlig prosedyre er å benytte "Avslutt",
@@ -237,7 +281,8 @@ class Meny {
 
     // Fjerner alt fra terminalvinduet
     static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        return;
+        // System.out.print("\033[H\033[2J");
+        // System.out.flush();
     }
 }
